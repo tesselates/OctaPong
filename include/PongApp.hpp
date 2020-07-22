@@ -1,8 +1,13 @@
 #pragma once
 
 #include <QApplication>
-#include <PaddleFactory>
+#include "PaddleFactory.hpp"
+#include <QDebug>
+#include "mainwindow.hpp"
+#include "PongView.hpp"
 #include <iostream>
+
+namespace pong {
 
 class PongApp : public QApplication
 {
@@ -10,17 +15,14 @@ class PongApp : public QApplication
 
 	public:
 		PongApp(int& argc, char* argv[]);
-		virtual ~PongApp();
-
-	void keyPressEvent(QKeyEvent* event) {
-        std::cout<<"press";
-    };
-    void keyReleaseEvent(QKeyEvent* event) {
-        std::cout<<"release";
-    };
+		virtual ~PongApp() = default;
 	
 	public slots:
-		void newGame();
+		void newGame() {};
+	private:
+		MainWindow w;
+		PongView* p;
 };
 
-#endif // CUTE_CHESS_APPLICATION_H
+
+}  // pong namespace

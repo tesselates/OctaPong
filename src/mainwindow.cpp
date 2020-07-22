@@ -7,8 +7,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(this->ui->newGame, SIGNAL(released()), this, SLOT(change()));
+    
 
 }
+
+void MainWindow::setGameView(QWidget* widget) 
+{
+    this->ui->verticalLayout->addWidget(widget);
+}
+
 
 MainWindow::~MainWindow()
 {

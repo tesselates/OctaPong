@@ -11,7 +11,7 @@ enum class Alignment {
     LEFT,
     UP,
     DOWN
-}
+};
 
 
 

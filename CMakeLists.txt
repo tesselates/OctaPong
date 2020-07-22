@@ -18,6 +18,8 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
+set(CMAKE_CXX_STANDARD 11)
+
 # Find components, for these to be found please set Qt5_DIR to the cmake directory of Qt5 ".../qtbase/lib/cmake/Qt5/"
 #  This can be done through exporting Qt5_DIR or adding -DQt5_DIR in the cmake command
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
@@ -32,12 +34,14 @@ add_executable(pong
     # source
     src/mainwindow.cpp
     src/PaddleFactory.cpp
+    src/PongApp.cpp
 
     # include
     include/config.hpp
     include/mainwindow.hpp
     include/PaddleFactory.hpp
     include/PongApp.hpp
+    include/PongView.hpp
 
     # ui
     src/ui/mainwindow.ui

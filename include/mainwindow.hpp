@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QDebug>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,8 +13,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+
+    void setGameView(QWidget* widget);
 
 private slots:
     void change();

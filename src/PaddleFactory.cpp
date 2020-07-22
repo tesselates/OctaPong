@@ -1,6 +1,5 @@
-#pragma once
-
 #include "PaddleFactory.hpp"
+#include <QPainter>
 
 namespace pong {
 
@@ -8,7 +7,8 @@ PaddleFactory::PaddleFactory() {
 
 }
 
-PaddleFactory::QGraphicsRectItem* createPlayer(Alignment alignment) {
+QGraphicsRectItem* PaddleFactory::createPlayer(Alignment alignment) {
+
     QGraphicsRectItem* player = new QGraphicsRectItem();
     
     if (alignment == Alignment::LEFT) {
@@ -19,7 +19,7 @@ PaddleFactory::QGraphicsRectItem* createPlayer(Alignment alignment) {
         player->setRect(Config::view_width - Config::distance_buffer, Config::view_height/2 - Config::paddle_length/2, Config::paddle_thinckness, Config::paddle_length);
     }
 
-    player->setBrush(Qt::white);
+    player->setBrush(QBrush(Qt::red));
 
     return player;
 }
