@@ -32,6 +32,8 @@ private:
 
     bool is_up = false;
     bool is_down = false;
+
+    friend class PaddleModel;
 };
 
 

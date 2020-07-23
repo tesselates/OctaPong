@@ -10,17 +10,13 @@ namespace pong {
  *  This class serves interfaces the model and QT-gui library
  */
 
-class PaddleController : public KeyListener {
+class KeyFilter : public KeyListener {
 
 public:
-    PadelModel padelModel;
     /**
      * Constructor
      */
-    PaddleController(Qt::Key up, Qt::Key down, PadelModel padelmodel);
-    PaddleController(PadelModel padelmodel);
-
-    void setPadelModel(PadelModel padelmodel) { this->padelModel = padelModel; };
+    KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)& upKeyResponse,  const std::function<void(bool)& downKeyResponse);
 
     /** 
      * @param event         the key press event
@@ -30,7 +26,8 @@ public:
 private:
     Qt::Key up;
     Qt::Key down;
-
+    std::function<void(bool) upKeyResponse;
+    std::function<void(bool) downKeyResponse;
 };
 
 
