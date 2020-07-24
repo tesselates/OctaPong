@@ -4,7 +4,7 @@
 namespace pong {
 
 
-KeyFilter::KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)& upKeyResponse,  const std::function<void(bool)& downKeyResponse) : 
+KeyFilter::KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)>& upKeyResponse,  const std::function<void(bool)>& downKeyResponse) : 
     up(up),
     down(down),
     upKeyResponse(upKeyResponse),

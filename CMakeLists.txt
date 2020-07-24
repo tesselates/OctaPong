@@ -32,15 +32,26 @@ add_executable(pong
     main.cpp
 
     # source
+    src/BallModel.cpp
+    src/GraphicsFactory.cpp
+    src/KeyFilter.cpp
+    src/LifeLine.cpp
     src/mainwindow.cpp
-    src/PaddleFactory.cpp
+    src/PaddleModel.cpp
     src/PongApp.cpp
+    src/PongModel.cpp
+    src/PongView.cpp
 
     # include
     include/config.hpp
+    include/BallModel.hpp
+    include/GraphicsFactory.hpp
+    include/KeyFilter.hpp
+    include/KeyListener.hpp
     include/mainwindow.hpp
-    include/PaddleFactory.hpp
+    include/PaddleModel.hpp
     include/PongApp.hpp
+    include/PongModel.hpp
     include/PongView.hpp
 
     # ui

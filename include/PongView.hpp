@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QGraphicsView>
-#include "PaddleFactory.hpp"
+#include "KeyFilter.hpp"
+#include "KeyFilter.hpp"
+#include <vector>
 
 
 namespace pong {
@@ -10,15 +12,22 @@ class PongView : public QGraphicsView {
     Q_OBJECT
 public:
 
-    QGraphicsRectItem* players[];
+    std::vector<QGraphicsRectItem*> paddles;    
+    std::vector<QGraphicsEllipseItem*> balls;
+    KeyListeners listeners;
 
     PongView () : QGraphicsView () {};
 
     void keyPressEvent(QKeyEvent* event) {
-        qDebug()<<"press";
+        for (auto& i : listeners) {
+            i->pressEvent(event);
+        }
     };
+
     void keyReleaseEvent(QKeyEvent* event) {
-        qDebug()<<"release";
+        for (auto& i : listeners) {
+            i->releaseEvent(event);
+        }
     };
 
 };

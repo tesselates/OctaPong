@@ -16,7 +16,7 @@ public:
     /**
      * Constructor
      */
-    KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)& upKeyResponse,  const std::function<void(bool)& downKeyResponse);
+    KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)>& upKeyResponse,  const std::function<void(bool)>& downKeyResponse);
 
     /** 
      * @param event         the key press event
@@ -26,8 +26,8 @@ public:
 private:
     Qt::Key up;
     Qt::Key down;
-    std::function<void(bool) upKeyResponse;
-    std::function<void(bool) downKeyResponse;
+    std::function<void(bool)> upKeyResponse;
+    std::function<void(bool)> downKeyResponse;
 };
 
 

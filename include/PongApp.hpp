@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QApplication>
-#include "PaddleFactory.hpp"
+#include "GraphicsFactory.hpp"
 #include <QDebug>
 #include "mainwindow.hpp"
 #include "PongView.hpp"

@@ -1,5 +1,5 @@
 #include "PaddleModel.hpp"
-
+#include <math.h>
 
 namespace pong {
 
@@ -9,14 +9,14 @@ PaddleModel::PaddleModel()
 
 }
 
-PaddleModel::PaddleModel(double xCoordinate, double yCoordinate) : xCoordinate (xCoordinate), yCoordinate(yCoordinate)
+PaddleModel::PaddleModel(double xSize, double ySize) : xSize (xSize), ySize(ySize)
 {
 
 }
 
-void PaddleModel::move() {
-    this->yCoordinate + yVelocity;
-    this->xCoordinate + xVelocity;
+void PaddleModel::move(double frequency) {
+    this->yCoordinate += yVelocity/frequency;
+    this->xCoordinate += xVelocity/frequency;
     this->yVelocity += this->yAcceleration;
     this->xVelocity += this->xAcceleration;
     if (abs(this->yVelocity) < this->velocity_threshold) {
@@ -30,13 +30,16 @@ void PaddleModel::move() {
 }
 
 
-void PaddleModel::velocity_update() {
+void PaddleModel::velocity_update(double frequency) {
     if (this->is_up == true) {
-        this->yVelocity -= 5;
+        this->yVelocity -= 500/frequency;
     } else if (this->is_down == true) {
-        this->yVelocity += 5;
+        this->yVelocity += 500/frequency;
     } 
 }
 
+void PaddleModel::enactCollision(BallModel& ball) {
+
+}
 
 }  // pong namespace
