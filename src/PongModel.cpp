@@ -4,7 +4,7 @@
 namespace pong {
 
 
-PongModel::PongModel() : xSize(1000), ySize(1000)  {}
+PongModel::PongModel() : xSize(500), ySize(500)  {}
 
 void PongModel::setUpTwoPlayerGame() {
     p_n = 2;
@@ -14,15 +14,15 @@ void PongModel::setUpTwoPlayerGame() {
     paddles[1] = PaddleModel(Config::paddle_thinckness, Config::paddle_length);
 
     paddles[0].xCoordinate = Config::distance_buffer;
-    paddles[0].yCoordinate = this->ySize - paddles[0].ySize/2;
+    paddles[0].yCoordinate = this->ySize/2;
 
     paddles[1].xCoordinate = this->xSize - paddles[0].xSize - Config::distance_buffer;
-    paddles[1].yCoordinate = this->ySize - paddles[0].ySize/2;
+    paddles[1].yCoordinate = this->ySize/2;
 
     lifelines[0] = LifeLine(Config::distance_buffer, 0, 1, 1);
     lifelines[1] = LifeLine(this->xSize - Config::distance_buffer, 0, -1, 1);
 
-    balls[0] = BallModel(30);
+    balls[0] = BallModel(10);
     balls[0].x = xSize/2;
     balls[0].y = ySize/2;
 }
@@ -50,7 +50,7 @@ void PongModel::progressGame(double frequency) {
 }
 
 
-bool PongModel::boundryCollision(BallModel& ball) {
+void PongModel::boundryCollision(BallModel& ball) {
     if (ball.getYCoordinate() - ball.getRadius() < 0 || ball.getYCoordinate() + ball.getRadius() > ySize) {
         ball.collideY();
     }
@@ -58,6 +58,7 @@ bool PongModel::boundryCollision(BallModel& ball) {
     if (ball.getXCoordinate() - ball.getRadius() < 0 || ball.getXCoordinate() + ball.getRadius() > xSize) {
         ball.collideX();
     }
+
 }
 void PongModel::reset() {
 

@@ -13,20 +13,24 @@ public:
     double getXCoordinate() const { return x; };
     double getYCoordinate() const { return y; };
 
-    void move(double frequency); 
     void collideX() { this->xV *= -1; };
     void collideY() { this->yV *= -1; };
-    
+
+    void setXVelocity (double xV) { this->xV = xV; };
+    void setYVelocity (double yV) { this->yV = yV; };
+    void setXCoordinate(double x) { this->x = x; };
+    void setYCoordinate(double y) { this->y = y; };
+
+    void move(double frequency); 
+
 private:
     double r;
 
     double x;
     double y;
 
-    double yV = 0;
     double xV = 0;
-
-    friend class PongModel;
+    double yV = 0;
 };
 
 

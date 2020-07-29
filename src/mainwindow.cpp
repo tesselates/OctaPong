@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include <QLayout>
 #include "./ui/ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,7 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::setGameView(QWidget* widget) 
 {
-    this->ui->verticalLayout->addWidget(widget);
+    QGridLayout* layout = new QGridLayout(this->ui->centralwidget); // no initialization here
+    
+    layout->setContentsMargins(0, 40, 0, 0);
+    layout->addWidget(widget);
 }
 
 

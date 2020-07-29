@@ -16,20 +16,10 @@ public:
     std::vector<QGraphicsEllipseItem*> balls;
     KeyListeners listeners;
 
-    PongView () : QGraphicsView () {};
+    PongView () : QGraphicsView () { };
 
-    void keyPressEvent(QKeyEvent* event) {
-        for (auto& i : listeners) {
-            i->pressEvent(event);
-        }
-    };
-
-    void keyReleaseEvent(QKeyEvent* event) {
-        for (auto& i : listeners) {
-            i->releaseEvent(event);
-        }
-    };
-
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
 };
 
 

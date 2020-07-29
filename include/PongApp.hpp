@@ -16,10 +16,9 @@ class PongApp : public QApplication
 	public:
 		PongApp(int& argc, char* argv[]);
 		virtual ~PongApp() = default;
-	
-	public slots:
-		void newGame() {};
+		
 	private:
+		PongModel pongModel;
 		MainWindow w;
 		PongView* p;
 };
