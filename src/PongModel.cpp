@@ -21,20 +21,30 @@ void PongModel::setUpTwoPlayerGame() {
 void PongModel::reset() {
     paddles[0].setXCoordinate(Config::distance_buffer);
     paddles[0].setYCoordinate(this->ySize/2);
+    paddles[0].setXVelocity(30);
 
     paddles[1].setXCoordinate(this->xSize - paddles[0].getWidth() - Config::distance_buffer);
     paddles[1].setYCoordinate(this->ySize/2);
+    paddles[1].setXVelocity(-30);
 
     balls[0].setXCoordinate(this->xSize/2);
     balls[0].setYCoordinate(this->ySize/2);
 
-    balls[0].setXVelocity(-10);
+    balls[0].setXVelocity(-20);
+    balls[0].setYVelocity(-20);
 }
 
 void PongModel::progressGame(double frequency) {
     
     for (size_t i = 0; i < p_n; i++) {
         paddles[i].move(frequency);
+        if (paddles[i].getYCoordinate() - paddles[i].getLength()/2 < 0) {
+            paddles[i].setYVelocity(0);
+            paddles[i].setYCoordinate(paddles[i].getLength()/2);
+        } else if (paddles[i].getYCoordinate() + paddles[i].getLength()/2 > this->ySize) {
+            paddles[i].setYVelocity(0);
+            paddles[i].setYCoordinate(this->ySize - paddles[i].getLength()/2);
+        }
         paddles[i].velocity_update(frequency);
     }
 

@@ -28,14 +28,15 @@ PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
      window.setTimeController(timer);
      
      pongModel.addListener(&gm);
-     window.show();
 
      auto p1 = gm.createPaddle(0);
      auto p2 = gm.createPaddle(1);
      auto b = gm.createBall(0);
+     gm.fireChangeEvent();
      scene->addItem(p1);
      scene->addItem(p2);
      scene->addItem(b);
+     window.show();
 }
 
 void PongApp::invokeChange() {
