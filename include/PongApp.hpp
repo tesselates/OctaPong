@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QApplication>
-#include "GraphicsFactory.hpp"
+#include "GraphicsManager.hpp"
 #include <QDebug>
-#include "mainwindow.hpp"
+#include "MainWindow.hpp"
 #include "PongView.hpp"
 #include <iostream>
 
@@ -13,14 +13,19 @@ class PongApp : public QApplication
 {
 	Q_OBJECT
 
-	public:
-		PongApp(int& argc, char* argv[]);
-		virtual ~PongApp() = default;
-		
-	private:
-		PongModel pongModel;
-		MainWindow w;
-		PongView* p;
+public:
+	PongApp(int& argc, char* argv[]);
+	virtual ~PongApp() = default;
+	
+public slots:
+	void invokeChange();
+
+private:
+	PongModel pongModel;
+	MainWindow window;
+	PongView* pongView;
+	QTimer* timer;
+	GraphicsManager gm;
 };
 
 

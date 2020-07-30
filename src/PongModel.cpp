@@ -12,22 +12,27 @@ void PongModel::setUpTwoPlayerGame() {
 
     paddles[0] = PaddleModel(Config::paddle_thinckness, Config::paddle_length);
     paddles[1] = PaddleModel(Config::paddle_thinckness, Config::paddle_length);
-
-    paddles[0].xCoordinate = Config::distance_buffer;
-    paddles[0].yCoordinate = this->ySize/2;
-
-    paddles[1].xCoordinate = this->xSize - paddles[0].xSize - Config::distance_buffer;
-    paddles[1].yCoordinate = this->ySize/2;
-
-    lifelines[0] = LifeLine(Config::distance_buffer, 0, 1, 1);
-    lifelines[1] = LifeLine(this->xSize - Config::distance_buffer, 0, -1, 1);
-
+    lifelines[0] = LifeLine(Config::distance_buffer, 1);
+    lifelines[1] = LifeLine(this->xSize - Config::distance_buffer, -1);
     balls[0] = BallModel(10);
-    balls[0].x = xSize/2;
-    balls[0].y = ySize/2;
+    this->reset();
+}
+
+void PongModel::reset() {
+    paddles[0].setXCoordinate(Config::distance_buffer);
+    paddles[0].setYCoordinate(this->ySize/2);
+
+    paddles[1].setXCoordinate(this->xSize - paddles[0].getWidth() - Config::distance_buffer);
+    paddles[1].setYCoordinate(this->ySize/2);
+
+    balls[0].setXCoordinate(this->xSize/2);
+    balls[0].setYCoordinate(this->ySize/2);
+
+    balls[0].setXVelocity(-10);
 }
 
 void PongModel::progressGame(double frequency) {
+    
     for (size_t i = 0; i < p_n; i++) {
         paddles[i].move(frequency);
         paddles[i].velocity_update(frequency);
@@ -39,11 +44,15 @@ void PongModel::progressGame(double frequency) {
             if (lifelines[j].testCollision(balls[i])) {
                 this->reset();
                 players[j].reduceLife();
+                for (auto& i : lifeListeners) {
+                    i->lifeChanged(j);
+                }
             } else {
                 paddles[j].enactCollision(balls[i]);
             }
         }
     }
+    
     for (auto& i : listeners) {
         i->fireChangeEvent();
     }
@@ -58,9 +67,6 @@ void PongModel::boundryCollision(BallModel& ball) {
     if (ball.getXCoordinate() - ball.getRadius() < 0 || ball.getXCoordinate() + ball.getRadius() > xSize) {
         ball.collideX();
     }
-
-}
-void PongModel::reset() {
 
 }
 

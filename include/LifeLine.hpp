@@ -7,7 +7,7 @@ namespace pong {
 class LifeLine {
 
 public:
-    LifeLine(double xLine, double yLine, double xDirection, double yDirection); 
+    LifeLine(double xLine, int xDirection); 
     LifeLine() = default;
 
     double getXLine() const { return xLine; };
@@ -16,11 +16,11 @@ public:
     void setXLine (double x) { this->xLine = x; };
     void setXDirection (int x) { this->xDirection = x; };
     
+    bool testCollision(const BallModel& ball) const;
+
 private:
     double xLine;
     int xDirection;
-
-    bool testCollision(const BallModel& ball) const;
 };
 
 

@@ -18,8 +18,8 @@ public:
 
 class LifeChangeListener {
 public:
-    virtual void lifeChanged(int life) = 0;
-    virtual void gameOver() = 0;
+    virtual void lifeChanged(int player) = 0;
+    virtual void gameOver(int player) = 0;
 };
 
 typedef std::vector<PongModelListener*> PongModelListeners;
@@ -39,8 +39,15 @@ public:
     const BallModel& getBall(size_t ball) const { return balls[ball]; }
     void progressGame(double frequency); 
     void addListener(PongModelListener* listener) { listeners.push_back(listener); };
+    void addLifeChangeListener(LifeChangeListener* listener) { lifeListeners.push_back(listener); };
 
+    double width() const { return xSize; };
+    double height() const { return ySize; };
 
+    size_t playerNumber() const { return p_n; };
+    size_t ballNumber() const { return b_n; }
+
+    void reset();
 
 private:
     PongModelListeners listeners;
@@ -54,7 +61,6 @@ private:
     };
     
     void boundryCollision(BallModel& ball);
-    void reset();
 
     size_t p_n;
     size_t b_n;

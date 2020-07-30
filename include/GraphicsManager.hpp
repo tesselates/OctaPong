@@ -12,18 +12,19 @@ class GraphicsManager : public PongModelListener
 {
 public:
     QGraphicsRectItem* paddleGraphics[8];
-    QGraphicsRectItem* ballGraphics[8];
+    QGraphicsEllipseItem* ballGraphics[8];
 
 	GraphicsManager(PongView* pongView, PongModel* pongModel);
+	GraphicsManager() = default;
     QGraphicsRectItem* createPaddle(size_t playerNumber);
     QGraphicsEllipseItem* createBall(size_t ballNumber);
 
+    void fireChangeEvent() override;
 private:
     PongView* pongView;
     PongModel* pongModel;
 
     void updateProportion();
-    void fireChangeEvent() override;
     double xProp = 1;
     double yProp = 1;
 };

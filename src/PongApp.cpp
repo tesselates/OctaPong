@@ -1,30 +1,45 @@
-#include "mainwindow.hpp"
+#include "MainWindow.hpp"
 #include "PongApp.hpp"
 #include "PongModel.hpp"
-#include "GraphicsFactory.hpp"
+#include "GraphicsManager.hpp"
 
 namespace pong {
 
 PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
+     timer = new QTimer();
+     connect(timer, SIGNAL(timeout()), this, SLOT(invokeChange()));
      
-     PongModel pm = PongModel();
-     pm.setUpTwoPlayerGame();
+     pongModel = PongModel();
+     pongModel.setUpTwoPlayerGame();
      QGraphicsScene* scene = new QGraphicsScene();
-     p = new PongView();
-     
-     GraphicsFactory gf = GraphicsFactory(p, &pm);
-     auto p1 = gf.createPaddle(0);
-     auto p2 = gf.createPaddle(1);
-     auto b = gf.createBall(0);
+     pongView = new PongView();
+     gm = GraphicsManager(pongView, &pongModel);
 
+
+
+
+     pongView->setFixedSize(500, 500);
+     pongView->setSceneRect(0, 0, 500, 500);
+     pongView->setScene(scene);
+     pongView->setSceneRect(0, 0, 500, 500);
+     pongView->fitInView(0, 0, 500, 500, Qt::KeepAspectRatio);
+     window.setGameView(pongView);
+     window.setGameModel(&pongModel);
+     window.setTimeController(timer);
+     
+     pongModel.addListener(&gm);
+     window.show();
+
+     auto p1 = gm.createPaddle(0);
+     auto p2 = gm.createPaddle(1);
+     auto b = gm.createBall(0);
      scene->addItem(p1);
      scene->addItem(p2);
      scene->addItem(b);
-     p->setFixedSize(500, 500);
-     //p->setSceneRect(50, 50, 500, 500);
-     p->setScene(scene);
-     w.setGameView(p);
-     w.show();
+}
+
+void PongApp::invokeChange() {
+     this->pongModel.progressGame(Config::frequency);
 }
 
 

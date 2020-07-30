@@ -1,4 +1,4 @@
-#include "mainwindow.hpp"
+#include "MainWindow.hpp"
 #include <QLayout>
 #include "./ui/ui_mainwindow.h"
 
@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(this->ui->newGame, SIGNAL(released()), this, SLOT(change()));
+    connect(this->ui->newGame, SIGNAL(released()), this, SLOT(newGameEvent()));
     
 
 }
@@ -27,7 +27,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::change()
+void MainWindow::newGameEvent()
 {
-    this->ui->newGame->setText("LOL");
+    this->timer->start(Config::update_rate);
 }

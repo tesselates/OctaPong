@@ -33,10 +33,10 @@ add_executable(pong
 
     # source
     src/BallModel.cpp
-    src/GraphicsFactory.cpp
+    src/GraphicsManager.cpp
     src/KeyFilter.cpp
     src/LifeLine.cpp
-    src/mainwindow.cpp
+    src/MainWindow.cpp
     src/PaddleModel.cpp
     src/PongApp.cpp
     src/PongModel.cpp
@@ -45,10 +45,10 @@ add_executable(pong
     # include
     include/config.hpp
     include/BallModel.hpp
-    include/GraphicsFactory.hpp
+    include/GraphicsManager.hpp
     include/KeyFilter.hpp
     include/KeyListener.hpp
-    include/mainwindow.hpp
+    include/MainWindow.hpp
     include/PaddleModel.hpp
     include/PongApp.hpp
     include/PongModel.hpp
