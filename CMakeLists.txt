@@ -53,6 +53,7 @@ add_executable(pong
     include/PongApp.hpp
     include/PongModel.hpp
     include/PongView.hpp
+    include/utility.hpp
 
     # ui
     src/ui/mainwindow.ui

@@ -21,11 +21,15 @@ public slots:
 	void invokeChange();
 
 private:
+
+
 	PongModel pongModel;
 	MainWindow window;
 	PongView* pongView;
 	QTimer* timer;
 	GraphicsManager gm;
+
+	KeyFilter keyFilters[8];
 };
 
 

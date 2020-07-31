@@ -17,7 +17,7 @@ public:
      * Constructor
      */
     KeyFilter(Qt::Key up, Qt::Key down, const std::function<void(bool)>& upKeyResponse,  const std::function<void(bool)>& downKeyResponse);
-
+    KeyFilter() = default;
     /** 
      * @param event         the key press event
      */ 

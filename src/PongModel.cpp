@@ -4,7 +4,7 @@
 namespace pong {
 
 
-PongModel::PongModel() : xSize(500), ySize(500)  {}
+PongModel::PongModel() : xSize(Config::view_width), ySize(Config::view_height)  {}
 
 void PongModel::setUpTwoPlayerGame() {
     p_n = 2;
@@ -12,26 +12,25 @@ void PongModel::setUpTwoPlayerGame() {
 
     paddles[0] = PaddleModel(Config::paddle_thinckness, Config::paddle_length);
     paddles[1] = PaddleModel(Config::paddle_thinckness, Config::paddle_length);
-    lifelines[0] = LifeLine(Config::distance_buffer, 1);
-    lifelines[1] = LifeLine(this->xSize - Config::distance_buffer, -1);
+
     balls[0] = BallModel(10);
+    lifelines[0] = LifeLine(balls[0].getRadius() + 1, 1);
+    lifelines[1] = LifeLine(this->xSize - balls[0].getRadius() - 1, -1);
     this->reset();
 }
 
 void PongModel::reset() {
     paddles[0].setXCoordinate(Config::distance_buffer);
     paddles[0].setYCoordinate(this->ySize/2);
-    paddles[0].setXVelocity(30);
 
     paddles[1].setXCoordinate(this->xSize - paddles[0].getWidth() - Config::distance_buffer);
     paddles[1].setYCoordinate(this->ySize/2);
-    paddles[1].setXVelocity(-30);
 
     balls[0].setXCoordinate(this->xSize/2);
     balls[0].setYCoordinate(this->ySize/2);
 
     balls[0].setXVelocity(-20);
-    balls[0].setYVelocity(-20);
+    balls[0].setYVelocity(-0.3);
 }
 
 void PongModel::progressGame(double frequency) {
@@ -50,6 +49,7 @@ void PongModel::progressGame(double frequency) {
 
     for (size_t i = 0; i < b_n; i++) {
         balls[i].move(frequency);
+        this->boundryCollision(balls[i]);
         for (size_t j = 0; j < p_n; j++) {
             if (lifelines[j].testCollision(balls[i])) {
                 this->reset();
@@ -70,11 +70,11 @@ void PongModel::progressGame(double frequency) {
 
 
 void PongModel::boundryCollision(BallModel& ball) {
-    if (ball.getYCoordinate() - ball.getRadius() < 0 || ball.getYCoordinate() + ball.getRadius() > ySize) {
+    if (ball.getYCoordinate() - ball.getRadius()/2 < 0 || ball.getYCoordinate() + ball.getRadius()/2 > ySize) {
         ball.collideY();
     }
 
-    if (ball.getXCoordinate() - ball.getRadius() < 0 || ball.getXCoordinate() + ball.getRadius() > xSize) {
+    if (ball.getXCoordinate() - ball.getRadius()/2 < 0 || ball.getXCoordinate() + ball.getRadius()/2 > xSize) {
         ball.collideX();
     }
 

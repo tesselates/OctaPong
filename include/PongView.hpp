@@ -20,6 +20,8 @@ public:
 
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
+
+    void addKeyListener(KeyListener* listener) { this->listeners.push_back(listener); };
 };
 
 

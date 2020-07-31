@@ -1,5 +1,8 @@
 #include "PaddleModel.hpp"
 #include <math.h>
+#include <cmath>
+
+#include "utility.hpp"
 
 namespace pong {
 
@@ -32,13 +35,32 @@ void PaddleModel::move(double frequency) {
 
 void PaddleModel::velocity_update(double frequency) {
     if (this->is_up == true) {
-        this->yV -= 500/frequency;
+        this->yV -= 10/frequency;
     } else if (this->is_down == true) {
-        this->yV += 500/frequency;
+        this->yV += 10/frequency;
     } 
 }
 
 void PaddleModel::enactCollision(BallModel& ball) {
+    double topy = this->y + ySize/2;
+    double boty = this->y - ySize/2;
+    double leftx = this->x - xSize/2;
+    double rightx = this->x + xSize/2;
+    double max = ball.getRadius();
+
+    if ((abs(rightx - ball.getXCoordinate()) < max || (abs(leftx - ball.getXCoordinate()) < max))) {
+        if (ball.getYCoordinate() < topy && ball.getYCoordinate() > boty) {
+            ball.collideX();
+        } else if (pointDistance(leftx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
+            ball.collideX();        
+        } else if (pointDistance(rightx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
+            ball.collideX();
+        } else if (pointDistance(leftx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
+            ball.collideX();
+        } else if (pointDistance(rightx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
+            ball.collideX();
+        }
+    }
 
 }
 
