@@ -8,13 +8,14 @@ namespace pong {
 
 PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
      timer = new QTimer();
-     connect(timer, SIGNAL(timeout()), this, SLOT(invokeChange()));
+     connect(timer, SIGNAL(timeout()), this, SLOT(updateGame()));
      
      pongModel = PongModel();
      pongModel.setUpTwoPlayerGame();
      QGraphicsScene* scene = new QGraphicsScene();
      pongView = new PongView();
      gm = GraphicsManager(pongView, &pongModel);
+
 
      pongView->setFixedSize(Config::view_height, Config::view_height);
      pongView->setSceneRect(0, 0, 500, 500);
@@ -46,7 +47,7 @@ PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
      window.show();
 }
 
-void PongApp::invokeChange() {
+void PongApp::updateGame() {
      this->pongModel.progressGame(Config::frequency);
 }
 

@@ -1,5 +1,6 @@
 #include "PaddleModel.hpp"
 #include "config.hpp"
+#include <QDebug>
 #include <math.h>
 #include <cmath>
 
@@ -13,7 +14,7 @@ PaddleModel::PaddleModel()
 
 }
 
-PaddleModel::PaddleModel(double xSize, double ySize) : xSize (xSize), ySize(ySize)
+PaddleModel::PaddleModel(double width, double length) : width (width), length(length)
 {
 
 }
@@ -43,10 +44,10 @@ void PaddleModel::velocity_update(double frequency) {
 }
 
 void PaddleModel::enactCollision(BallModel& ball) {
-    double topy = this->y + ySize/2;
-    double boty = this->y - ySize/2;
-    double leftx = this->x - xSize/2;
-    double rightx = this->x + xSize/2;
+    double topy = this->y + length/2;
+    double boty = this->y - length/2;
+    double leftx = this->x - width/2;
+    double rightx = this->x + width/2;
     double xrdis = abs(rightx - ball.getXCoordinate());
     double xldis = abs(leftx - ball.getXCoordinate());
     double max = ball.getRadius();
@@ -85,8 +86,8 @@ void PaddleModel::enactCollision(BallModel& ball) {
 }
 
 void PaddleModel::yCollision(BallModel& ball) {
-    double topy = this->y + ySize/2;
-    double boty = this->y - ySize/2;
+    double topy = this->y + length/2;
+    double boty = this->y - length/2;
 
     ball.collideY();
     ball.setYVelocity(ball.getYVelocity() + this->yV);
@@ -99,8 +100,8 @@ void PaddleModel::yCollision(BallModel& ball) {
 }
 
 void PaddleModel::xCollision(BallModel& ball) {
-    double leftx = this->x - xSize/2;
-    double rightx = this->x + xSize/2;
+    double leftx = this->x - width/2;
+    double rightx = this->x + width/2;
 
     ball.collideX();
     ball.setYVelocity(ball.getYVelocity() + this->yV/3);

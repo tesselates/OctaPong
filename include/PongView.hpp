@@ -10,18 +10,38 @@ namespace pong {
 
 class PongView : public QGraphicsView {
     Q_OBJECT
+
 public:
+    PongView () : QGraphicsView () {};
 
-    std::vector<QGraphicsRectItem*> paddles;    
-    std::vector<QGraphicsEllipseItem*> balls;
-    KeyListeners listeners;
+    /**
+     *  Access methods
+     */ 
+    void addKeyListener(KeyListener* listener) { this->listeners.push_back(listener); };
 
-    PongView () : QGraphicsView () { };
 
+    /**
+     *  Class logic
+     */
+
+    /**
+     * Registers when a key is pressed
+     * 
+     * @param event         the key which is pressed
+     */
     void keyPressEvent(QKeyEvent* event);
+
+    /**
+     * Registers when a key is released
+     * 
+     * @param event         the key which is released
+     */
     void keyReleaseEvent(QKeyEvent* event);
 
-    void addKeyListener(KeyListener* listener) { this->listeners.push_back(listener); };
+private:
+    std::vector<QGraphicsRectItem*> paddles;  // ui paddles
+    std::vector<QGraphicsEllipseItem*> balls;  // ui balls
+    KeyListeners listeners;  // listeners for the key events
 };
 
 

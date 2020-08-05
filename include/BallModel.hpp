@@ -3,36 +3,65 @@
 
 namespace pong {
 
+
+/**
+ *  Class that manipulates the position of a ball in the game model
+ */
 class BallModel {
 
 public:
+    /**
+     * @param r             the radius of the ball
+     */ 
     BallModel(double r);
     BallModel() = default;
 
+
+    /**
+     *  Access methods
+     */ 
     double getRadius() const { return r; };
     double getXCoordinate() const { return x; };
     double getYCoordinate() const { return y; };
     double getYVelocity() const { return yV; };
     double getxVelocity() const { return xV; };
 
-    void collideX() { this->xV *= -1; };
-    void collideY() { this->yV *= -1; };
-
     void setXVelocity (double xV) { this->xV = xV; };
     void setYVelocity (double yV) { this->yV = yV; };
     void setXCoordinate(double x) { this->x = x; };
     void setYCoordinate(double y) { this->y = y; };
 
+
+    /**
+     *  Class logic
+     */
+
+    /**
+     *  Perform an elastic collision with the x-plane 
+     */ 
+    void collideX() { this->xV *= -1; };
+
+    /**
+     *  Perform an elastic collision with the y-plane 
+     */ 
+    void collideY() { this->yV *= -1; };
+
+    /**
+     *  Change the position of the ball based on the current velocities
+     * 
+     *  @param frequency            the frequency indicates with which frequency this method is called, the greater the frequency the smaller the movement
+     */ 
     void move(double frequency); 
 
+
 private:
-    double r;
+    double r;  // radius of the ball
 
-    double x;
-    double y;
+    double x;  // x coordinate
+    double y;  // y coordinate
 
-    double xV = 0;
-    double yV = 0;
+    double xV = 0;  // x velocity
+    double yV = 0;  // y velocity
 };
 
 

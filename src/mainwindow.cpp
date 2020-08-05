@@ -29,10 +29,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::newGameEvent()
 {
-
+    this->ui->newGame->setText("End game");
     this->timer->start(Config::update_rate);
-    
+
+    this->ui->newGame->disconnect();
+    connect(this->ui->newGame, SIGNAL(released()), this, SLOT(endGame()));
+
+
 }
+
+void MainWindow::endGame()
+{
+    this->ui->newGame->setText("New game");
+    this->pongModel->reset();
+    this->timer->stop();
+
+    this->ui->newGame->disconnect();
+    connect(this->ui->newGame, SIGNAL(released()), this, SLOT(newGameEvent()));
+
+}
+
 
 void MainWindow::lifeChanged(int player) {
     

@@ -4,8 +4,9 @@
 #include <QKeyEvent>
 
 
-
-
+/**
+ *  Interface for classes that listen to the key pressed of a focussed QT object
+ */ 
 class KeyListener {
 public:
     virtual void pressEvent(QKeyEvent* event) = 0;
