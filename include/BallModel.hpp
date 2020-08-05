@@ -12,6 +12,8 @@ public:
     double getRadius() const { return r; };
     double getXCoordinate() const { return x; };
     double getYCoordinate() const { return y; };
+    double getYVelocity() const { return yV; };
+    double getxVelocity() const { return xV; };
 
     void collideX() { this->xV *= -1; };
     void collideY() { this->yV *= -1; };

@@ -47,6 +47,9 @@ private:
 
     bool is_up = false;
     bool is_down = false;
+
+    void yCollision(BallModel& ball); 
+    void xCollision(BallModel& ball); 
 };
 
 

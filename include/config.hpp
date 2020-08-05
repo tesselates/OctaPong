@@ -9,4 +9,5 @@ struct Config {
     static constexpr int update_rate = 10;
     static constexpr double update_rate2 = 10;
     static constexpr double frequency = 10;
+    static constexpr double sin45 = 0.70;
 };

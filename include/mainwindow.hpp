@@ -24,8 +24,8 @@ public:
     void setTimeController(QTimer* timer) { this->timer = timer; };
 
     void endGame();
-    void lifeChanged(int player) {};
-    void gameOver(int player) {};
+    void lifeChanged(int player) override;
+    void gameOver(int player) override;
 private slots:
     void newGameEvent();
 

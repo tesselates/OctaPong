@@ -1,4 +1,5 @@
 #include "PaddleModel.hpp"
+#include "config.hpp"
 #include <math.h>
 #include <cmath>
 
@@ -46,22 +47,70 @@ void PaddleModel::enactCollision(BallModel& ball) {
     double boty = this->y - ySize/2;
     double leftx = this->x - xSize/2;
     double rightx = this->x + xSize/2;
+    double xrdis = abs(rightx - ball.getXCoordinate());
+    double xldis = abs(leftx - ball.getXCoordinate());
     double max = ball.getRadius();
+    double max_sd = max * Config::sin45;
 
-    if ((abs(rightx - ball.getXCoordinate()) < max || (abs(leftx - ball.getXCoordinate()) < max))) {
+    if ( (xrdis < max) || (xldis < max) ) {
         if (ball.getYCoordinate() < topy && ball.getYCoordinate() > boty) {
-            ball.collideX();
-        } else if (pointDistance(leftx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
-            ball.collideX();        
-        } else if (pointDistance(rightx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
-            ball.collideX();
-        } else if (pointDistance(leftx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
-            ball.collideX();
-        } else if (pointDistance(rightx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < ball.getRadius()) {
-            ball.collideX();
+            this->xCollision(ball);
+        } else if (pointDistance(leftx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < max) {
+            if (xrdis < max_sd || xldis < max_sd) {
+                this->yCollision(ball);
+            } else {
+                this->xCollision(ball);
+            }
+        } else if (pointDistance(rightx, topy , ball.getXCoordinate(), ball.getYCoordinate()) < max) {
+            if (xrdis < max_sd || xldis < max_sd) {
+                this->yCollision(ball);
+            } else {
+                this->xCollision(ball);
+            }        
+        } else if (pointDistance(leftx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < max) {
+            if (xrdis < max_sd || xldis < max_sd) {
+                this->yCollision(ball);
+            } else {
+                this->xCollision(ball);
+            }        
+        } else if (pointDistance(rightx, boty , ball.getXCoordinate(), ball.getYCoordinate()) < max) {
+            if (xrdis < max_sd || xldis < max_sd) {
+                this->yCollision(ball);
+            } else {
+                this->xCollision(ball);
+            }        
         }
     }
 
 }
+
+void PaddleModel::yCollision(BallModel& ball) {
+    double topy = this->y + ySize/2;
+    double boty = this->y - ySize/2;
+
+    ball.collideY();
+    ball.setYVelocity(ball.getYVelocity() + this->yV);
+
+    if(abs(topy - ball.getYCoordinate()) >  abs(boty - ball.getYCoordinate())) {
+        ball.setYCoordinate(boty - ball.getRadius());
+    } else {
+        ball.setYCoordinate(topy + ball.getRadius());
+    }
+}
+
+void PaddleModel::xCollision(BallModel& ball) {
+    double leftx = this->x - xSize/2;
+    double rightx = this->x + xSize/2;
+
+    ball.collideX();
+    ball.setYVelocity(ball.getYVelocity() + this->yV/3);
+
+    if(abs(leftx - ball.getXCoordinate()) >  abs(rightx - ball.getXCoordinate())) {
+        ball.setXCoordinate(rightx + ball.getRadius());
+    } else {
+        ball.setXCoordinate(leftx - ball.getRadius());
+    }
+}
+
 
 }  // pong namespace

@@ -29,5 +29,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::newGameEvent()
 {
+
     this->timer->start(Config::update_rate);
+    
 }
+
+void MainWindow::lifeChanged(int player) {
+    
+};
+
+void MainWindow::gameOver(int player) {
+
+};

@@ -33,6 +33,7 @@ void PongModel::reset() {
     balls[0].setYVelocity(-0.3);
 }
 
+
 void PongModel::progressGame(double frequency) {
     
     for (size_t i = 0; i < p_n; i++) {
