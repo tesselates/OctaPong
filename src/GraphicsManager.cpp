@@ -32,9 +32,6 @@ QGraphicsEllipseItem* GraphicsManager::createBall(size_t ballN) {
 void GraphicsManager::updateProportion() {
     auto y = this->pongView->sceneRect().height();
     auto x = this->pongView->sceneRect().width();
-    qDebug()<<y;
-    qDebug()<<x;
-
 }
 
 void GraphicsManager::fireChangeEvent() {

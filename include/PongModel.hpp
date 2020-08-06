@@ -32,6 +32,15 @@ public:
 };
 
 
+/**
+ * Struct that holds player lives
+ */ 
+struct Player {
+    int life;
+    void reduceLife() { life--; };
+};
+
+
 typedef std::vector<PongModelListener*> PongModelListeners;
 typedef std::vector<LifeChangeListener*> LifeChangeListeners;
 
@@ -51,6 +60,7 @@ public:
 
     const PaddleModel& getPaddle(size_t paddle) const { return paddles[paddle]; }
     const BallModel& getBall(size_t ball) const { return balls[ball]; }
+    const Player& getPlayer(size_t player) const { return players[player]; }
 
     void addListener(PongModelListener* listener) { listeners.push_back(listener); };
     void addLifeChangeListener(LifeChangeListener* listener) { lifeListeners.push_back(listener); };
@@ -82,18 +92,15 @@ public:
      */ 
     void reset();
 
+    /**
+     *  Move paddles and balls to the start position
+     */ 
+    void startPositions();
+
 
 private:
     PongModelListeners listeners;  // list of listeners of the game model
     LifeChangeListeners lifeListeners;  // list of listeners of changes in player lives
-
-    /**
-     * Struct that holds player lives
-     */ 
-    struct Player {
-        int life = 10;
-        void reduceLife() { life--; };
-    };
 
     size_t p_n;  // number of players
     size_t b_n;  // number of balls

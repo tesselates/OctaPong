@@ -19,7 +19,7 @@ void PongModel::setUpTwoPlayerGame() {
     this->reset();
 }
 
-void PongModel::reset() {
+void PongModel::startPositions() {
     paddles[0].setXCoordinate(Config::distance_buffer);
     paddles[0].setYCoordinate(this->ySize/2);
     paddles[0].setYVelocity(0);
@@ -36,6 +36,19 @@ void PongModel::reset() {
 
     for (auto& i : listeners) {
         i->fireChangeEvent();
+    }
+}
+
+
+void PongModel::reset() {
+    this->startPositions();
+    players[0] = Player{2};
+    players[1] = Player{2};
+
+    for (auto& t : lifeListeners) {
+        for (size_t i = 0; i < p_n; i++) {
+            t->lifeChanged(i);
+        }
     }
 }
 
@@ -59,10 +72,17 @@ void PongModel::progressGame(double frequency) {
         this->boundryCollision(balls[i]);
         for (size_t j = 0; j < p_n; j++) {
             if (lifelines[j].testCrossing(balls[i])) {
-                this->reset();
+                this->startPositions();
                 players[j].reduceLife();
-                for (auto& i : lifeListeners) {
-                    i->lifeChanged(j);
+
+                if (players[j].life <= 0) {
+                    for (auto& t : lifeListeners) {
+                        t->gameOver(j);
+                    }
+                } else {
+                    for (auto& t : lifeListeners) {
+                        t->lifeChanged(j);
+                    }
                 }
             } else {
                 paddles[j].enactCollision(balls[i]);

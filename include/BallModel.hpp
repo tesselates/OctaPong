@@ -37,12 +37,12 @@ public:
      */
 
     /**
-     *  Perform an elastic collision with the x-plane 
+     *  Perform an elastic collision with the x-axis
      */ 
     void collideX() { this->xV *= -1; };
 
     /**
-     *  Perform an elastic collision with the y-plane 
+     *  Perform an elastic collision with the y-axis 
      */ 
     void collideY() { this->yV *= -1; };
 

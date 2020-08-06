@@ -26,6 +26,7 @@ PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
      window.setTimeController(timer);
      
      pongModel.addListener(&gm);
+     pongModel.addLifeChangeListener(&window);
 
      auto p1 = gm.createPaddle(0);
      auto p2 = gm.createPaddle(1);

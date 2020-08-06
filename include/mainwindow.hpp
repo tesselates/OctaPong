@@ -9,7 +9,9 @@
 
 
 /**
- *  Forward decleration of a MainWindow class, this MainWindow is a seperate header that will generated from a .ui file by make when building the project.
+ *  Forward decleration of a MainWindow class, 
+ *   this MainWindow is a seperate header that will be generated from a .ui file 
+ *   by the make prodecure when building the project.
  */ 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -52,7 +54,7 @@ private slots:
     void newGameEvent();
 
     /**
-     *  Ends the game
+     *  Ends the game, pauses the progression and resets the model
      */ 
     void endGame();
 
