@@ -24,7 +24,7 @@ public:
     double getXCoordinate() const { return x; };
     double getYCoordinate() const { return y; };
     double getYVelocity() const { return yV; };
-    double getxVelocity() const { return xV; };
+    double getXVelocity() const { return xV; };
 
     void setXVelocity (double xV) { this->xV = xV; };
     void setYVelocity (double yV) { this->yV = yV; };

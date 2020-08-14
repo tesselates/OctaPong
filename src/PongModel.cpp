@@ -31,7 +31,7 @@ void PongModel::startPositions() {
     balls[0].setXCoordinate(this->xSize/2);
     balls[0].setYCoordinate(this->ySize/2);
 
-    balls[0].setXVelocity(40 * (-1 + (2 * (rand() % 2))));
+    balls[0].setXVelocity(30 * (-1 + (2 * (rand() % 2))));
     balls[0].setYVelocity(-0.1);
 
     for (auto& i : listeners) {

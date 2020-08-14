@@ -30,16 +30,22 @@ void PaddleModel::move(double frequency) {
     if (abs(this->xV) < this->vT) {
         this->xV = 0;
     }
-    this->yA = -this->yV * this->aM;
-    this->xA = -this->xV * this->aM;
+    this->yA = -this->yV * this->aM * (10/frequency);
+    this->xA = -this->xV * this->aM * (10/frequency);
 }
 
 
 void PaddleModel::velocity_update(double frequency) {
     if (this->is_up == true) {
         this->yV -= 10/frequency;
+        if (this->yV > 0) {
+            this->yV -= 10/frequency;
+        }
     } else if (this->is_down == true) {
         this->yV += 10/frequency;
+        if (this->yV < 0) {
+            this->yV += 10/frequency;
+        }
     } 
 }
 
@@ -91,15 +97,20 @@ void PaddleModel::yCollision(BallModel& ball) {
 
     ball.collideY();
     ball.setYVelocity(ball.getYVelocity() + this->yV);
-
+    ball.move(Config::frequency);
     if(abs(topy - ball.getYCoordinate()) >  abs(boty - ball.getYCoordinate())) {
         ball.setYCoordinate(boty - ball.getRadius());
     } else {
         ball.setYCoordinate(topy + ball.getRadius());
     }
+
+    
 }
 
 void PaddleModel::xCollision(BallModel& ball) {
+
+    ball.setXVelocity(ball.getXVelocity() * 1.05);
+
     double leftx = this->x - width/2;
     double rightx = this->x + width/2;
 

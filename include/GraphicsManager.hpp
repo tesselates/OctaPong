@@ -12,7 +12,7 @@ namespace pong {
 
 
 /**
- *  Class that creates the interface game object with the QT library
+ *  Class that creates the graphical game object with the QT library
  *  and manages their position on the view by listening to changes of the game model
  */ 
 class GraphicsManager : public PongModelListener {
