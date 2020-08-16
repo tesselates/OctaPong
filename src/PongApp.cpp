@@ -16,7 +16,6 @@ PongApp::PongApp(int& argc, char* argv[]) : QApplication(argc, argv)  {
      pongView = new PongView();
      gm = GraphicsManager(pongView, &pongModel);
 
-
      pongView->setFixedSize(Config::view_height, Config::view_height);
      pongView->setSceneRect(0, 0, 500, 500);
      pongView->setScene(scene);
